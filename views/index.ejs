@@ -1,0 +1,88 @@
+<!--
+ * @Date: 2023-01-18 16:53:59
+ * @Author: 枫
+ * @LastEditors: 枫
+ * @description: description
+ * @LastEditTime: 2023-01-19 11:45:28
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IP 查询</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      padding-top: 200px;
+    }
+
+    .search {
+      width: 500px;
+      border: solid 1px #d9d9d9;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 20px;
+      padding: 0 20px;
+      box-sizing: border-box;
+      font-size: 18px;
+      color: #666;
+    }
+
+    .error-msg {
+      color: red;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    ul li {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    window.onload = () => {
+      // 加载完成时添加事件绑定
+      const search = document.getElementById("search");
+      search.addEventListener("keydown", (e) => {
+        if(e.code === 'Enter') {
+          location.search = '?ip=' + search.value
+        }
+      })
+    }
+  </script>
+  <div class="container">
+    <input id="search" class="search" placeholder="请输入 IP 地址" value="<%- ip %>" />
+    <% if(locals.msg) { %>
+      <p class="error-msg"><%- msg %> </p>
+    <% } else if(locals.res) { %>
+      <ul>
+        <% if(res.countryName) { %>
+          <li><%- res.countryName %> </li>
+        <% } %>
+
+        <% if(res.regionName) { %>
+          <li><%- res.regionName %> </li>
+        <% } %>
+
+        <% if(res.cityName) { %>
+          <li><%- res.cityName %> </li>
+        <% } %>
+      </ul>      
+    <% } %> 
+  </div>
+</body>
+
+</html>
